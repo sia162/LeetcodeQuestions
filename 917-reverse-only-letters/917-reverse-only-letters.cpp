@@ -2,10 +2,6 @@ class Solution {
 public:
     string reverseOnlyLetters(string s) {
         
-        
-     // ?6C40E
-     // i    j
-        
         for(int i=0,j=s.length()-1;i<j;){
             
             if(i<s.length() && !isalpha(s[i])) i++;
