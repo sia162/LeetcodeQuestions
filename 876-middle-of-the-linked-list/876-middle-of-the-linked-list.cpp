@@ -12,26 +12,38 @@ class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
         
-        ListNode* temp;
-        temp = head;
-        int count = 1;
-        while(temp->next != NULL){
-            count++;
-            temp = temp->next;
+        
+        // two pointer approch
+        ListNode *onestep = head, *twostep = head;
+        while(twostep && twostep->next!=NULL){
+            onestep = onestep->next;
+            twostep = twostep->next->next;
         }
         
-            // cout<<count<<" ";
-        if(count%2==0) count = count/2 + 1;
-        else count = (count+1)/2;
+        return onestep;
         
         
-        temp = head;    
-        while(count!=1){
-            count--;
-            temp = temp->next;
-        }
+//brute force approch     
+//         ListNode* temp;
+//         temp = head;
+//         int count = 1;
+//         while(temp->next != NULL){
+//             count++;
+//             temp = temp->next;
+//         }
         
-        return temp;
+//             // cout<<count<<" ";
+//         if(count%2==0) count = count/2 + 1;
+//         else count = (count+1)/2;
+        
+        
+//         temp = head;    
+//         while(count!=1){
+//             count--;
+//             temp = temp->next;
+//         }
+        
+//         return temp;
         
     }
 };
