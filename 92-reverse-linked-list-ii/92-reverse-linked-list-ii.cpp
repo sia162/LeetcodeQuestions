@@ -35,7 +35,7 @@ public:
             }
              if(i == right){
                 rightpointer = temp;
-                 // break;
+                 break;
             }
             temp=temp->next;
             i++;
@@ -43,18 +43,6 @@ public:
         
         
         ListNode* nullthing;
-//         if(rightpointer == NULL && leftpointer==NULL){
-//             leftpointer = head;
-//             nullthing = NULL;
-//         }else if(leftpointer == NULL){
-//             leftpointer = head;
-//             nullthing = rightpointer->next;
-//         }else if(rightpointer == NULL){
-//             nullthing = NULL;
-//         }else{
-            
-//         }
-        
         nullthing = rightpointer->next;
             
         ListNode* leftnode = leftpointer;
