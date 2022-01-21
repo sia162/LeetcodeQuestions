@@ -13,23 +13,11 @@ class Solution {
 public:
     int sum = 0;
     
-    void dfs(TreeNode* root,int leftSide){
-        if(root==NULL) return;
+    int sumOfLeftLeaves(TreeNode* root , bool leftSide=false) {
+        if(root == NULL) return 0;
+        if(root->left == NULL && root->right == NULL) return leftSide ? root->val : 0;
         
-        if(root->left == NULL && root->right == NULL){
-            if(leftSide == 1) sum += root->val;
-
-            return;
-        }
-        
-        dfs(root->left,1);
-        dfs(root->right,0);
-        
-    }
-    
-    int sumOfLeftLeaves(TreeNode* root) {
-        dfs(root,-1);
-        return sum;
+        return sumOfLeftLeaves(root->left,true) + sumOfLeftLeaves(root->right,false);
         
     }
 };
