@@ -10,21 +10,13 @@
  */
 class Solution {
 public:
-    int getDecimalValue(ListNode* head) {
-        vector<int> binary;
-        ListNode* temp = head;
-        
-        while(temp!=NULL){
-            binary.push_back(temp->val);
-            temp=temp->next;
+    int getDecimalValue(ListNode* head) {  
+        string s{};
+        while(head!=NULL){
+            s += head -> val + '0';
+            head=head->next;
         }
-        
-        int num = 0;
-        int n = binary.size()-1;
-        for(int i=n;i>=0;i--){
-            num = num + binary[i]*pow(2,n-i);
-        }
-        
-        return num;
+        cout<<s<<" ";
+        return stoull(s,0,2); //s->string 2->base
     }
 };
