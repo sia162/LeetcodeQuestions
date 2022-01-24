@@ -11,12 +11,11 @@
 class Solution {
 public:
     int getDecimalValue(ListNode* head) {  
-        string s{};
+        int ans=0;
         while(head!=NULL){
-            s += head -> val + '0';
+            ans = ans*2+head->val;
             head=head->next;
         }
-        cout<<s<<" ";
-        return stoull(s,0,2); //s->string 2->base
+        return ans;
     }
 };
