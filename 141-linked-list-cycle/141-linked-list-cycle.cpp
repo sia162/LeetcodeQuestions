@@ -11,14 +11,17 @@ public:
     bool hasCycle(ListNode *head) {
         
         if(head==NULL) return false;
-        unordered_set<ListNode*> s;
         
-        while(head!=NULL){
-            if(s.find(head)!=s.end()) return true;
+        ListNode* slow = head;
+        ListNode* fast = head;
+        
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
             
-            s.insert(head);
-            head=head->next;
+            if(slow==fast) return true;
         }
+        
         return false;
     }
 };
