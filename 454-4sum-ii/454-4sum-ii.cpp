@@ -16,7 +16,7 @@ public:
             for(int j=0;j<nums4.size();j++){
                 int needed = 0 - (nums3[i]+nums4[j]);
                 
-                if(m.find(needed)!=m.end()){
+                if(m.count(needed)){
                     count += m[needed];
                 }
             }
