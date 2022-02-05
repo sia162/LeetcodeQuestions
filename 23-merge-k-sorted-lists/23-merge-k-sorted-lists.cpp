@@ -11,20 +11,21 @@
 class Solution {
 public:
     ListNode* mergeKLists(vector<ListNode*>& lists) {
-        multiset<int> ms;
+        priority_queue<int,vector<int>,greater<int>> pq;
         
         for(int i=0;i<lists.size();i++){
             ListNode* temp = lists[i];
             while(temp!=NULL){
-                ms.insert(temp->val);
+                pq.push(temp->val);
                 temp=temp->next;
             } 
         }
         
         ListNode* ans = new ListNode(0);
         ListNode* res = ans;
-        for(auto val:ms){
-            ans->next=new ListNode(val);
+        while(!pq.empty()){
+            ans->next=new ListNode(pq.top());
+            pq.pop();
             ans=ans->next;
         }
         
