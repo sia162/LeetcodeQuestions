@@ -1,19 +1,20 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-      unordered_map<int,int> m;
-        for(int i=0;i<nums.size();i++) m[nums[i]]++;
+//Moore's Voting Algorithm
+        int count = 0;
+        int majority;
         
-        int maxe = 0;
-        int ans = nums[0];
-        for(auto it:m){
-            if(it.second > maxe){
-                maxe = it.second;
-                ans = it.first;
-            }
+        for(int i =0;i<nums.size();i++){
+            if(count == 0){majority = nums[i]; count++;}
+            else if(majority == nums[i]){count++;}
+            else{count --;}
         }
         
-        return ans;
+        // if answer value was not guaranteed then we will have to iterate 
+        // once to check if it is actually having the count of n/2
+        
+        return majority;
     }
 };
 
