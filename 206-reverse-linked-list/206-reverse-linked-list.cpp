@@ -17,6 +17,7 @@ public:
         
         ListNode* newhead = reverseList(head->next);
         ListNode* headnext = head->next;
+        
         headnext->next = head;
         head->next = NULL;
         return newhead;
