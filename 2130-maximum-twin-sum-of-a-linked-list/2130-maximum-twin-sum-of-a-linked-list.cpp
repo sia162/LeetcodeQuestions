@@ -10,21 +10,46 @@
  */
 class Solution {
 public:
+    
+    ListNode* reverseHalfList(ListNode* h){
+        if(h->next == NULL) return h;
+        
+        ListNode* newhead = reverseHalfList(h->next);
+        ListNode* headnext = h->next;
+        
+        headnext->next = h;
+        h->next = NULL;
+        return newhead;
+    }
+    
+    
     int pairSum(ListNode* head) {
+        ListNode* ptr1 = head;
         
-        vector<int> list;
-        ListNode* temp = head;
+        ListNode* slow = head;
+        ListNode* fast = head->next->next;
         
-        while(temp!=NULL){
-            list.push_back(temp->val);
-            temp=temp->next;
+        if(fast == NULL) return head->val + head->next->val;
+        
+        while(fast!=NULL && fast->next!=NULL){
+            slow = slow->next;
+            fast = fast->next->next;
         }
         
-        int twinmaxsum = INT_MIN;
-        for(int i=0,j=list.size()-1;i<j;i++,j--){
-            twinmaxsum = max(list[i]+list[j] , twinmaxsum);
+        slow->next = reverseHalfList(slow->next);
+      
+        // cout<<head->val<<" ";
+        // cout<<slow->next->val;
+        ListNode* ptr2 = slow->next;
+        int maxtwinsum = INT_MIN;
+        
+         while(ptr2 != NULL){
+            cout<<ptr1->val + ptr2->val<<" ";
+            maxtwinsum = max((ptr1->val + ptr2->val) , maxtwinsum);
+             ptr1 = ptr1->next;
+             ptr2 = ptr2->next;
         }
         
-        return twinmaxsum;
+       return maxtwinsum;
     }
 };
