@@ -1,31 +1,22 @@
 class Solution {
 public:
-    int findMinArrowShots(vector<vector<int>>& points) {
+    
+    int findMinArrowShots(vector<vector<int>>& p) {
+        sort(p.begin(),p.end(),[&](vector<int> &a, vector<int>&b){return a[1]<b[1];});
+       
+  
+        int f = p[0][1];
         int arrow = 1;
         
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> p;
-        for(int i=0;i<points.size();i++) 
-            p.push(make_pair(points[i][1],points[i][0]));
-        
-        auto it = p.top();
-        int end = it.first;
-        p.pop();
-        
-        auto itr = p.top();
-        while(!p.empty()){
-        
-            while(!p.empty() && itr.second <= end){
-                p.pop();
-                
-                if(p.empty()) break;
-                itr = p.top();
+
+        for(int i=1;i<p.size();i++){
+            //if arrow lie in ballon range 
+            //no need to waste a arrow
+            //otherwise shot a arrow at x end point
+            if( !(p[i][0]<=f && f<=p[i][1])){
+                arrow++;
+                f = p[i][1];
             }
-            
-            if(p.empty()) break;
-            end = itr.first;
-            arrow++;
-            p.pop();
-            itr = p.top();  
         }
         
         return arrow;
