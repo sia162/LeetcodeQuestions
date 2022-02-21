@@ -1,7 +1,6 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-//Moore's Voting Algorithm
         int count = 0;
         int majority;
         
@@ -10,9 +9,6 @@ public:
             else if(majority == nums[i]){count++;}
             else{count --;}
         }
-        
-        // if answer value was not guaranteed then we will have to iterate 
-        // once to check if it is actually having the count of n/2
         
         return majority;
     }
