@@ -1,6 +1,4 @@
 ​
-```
-​
 ​
 **APPROCH 3:**
 using hashmaps~
@@ -36,3 +34,4 @@ else{count --;}
 }
 return majority;
 ```
+​
