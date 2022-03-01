@@ -4,17 +4,17 @@ public:
         
         if(t.length()!=s.length()) return false;
         
-        unordered_map<char,int> m1;
-        unordered_map<char,int> m2;
+        unordered_map<char,int> m;
         
         for(int i=0;i<t.length();i++){
-            m1[t[i]]++;
-            m2[s[i]]++;
+            m[t[i]]++;
+            m[s[i]]--;
         }
         
-        if(m1==m2)
-            return true;
+        for(auto count: m){
+            if(count.second) return false; //if count>0
+        }
         
-        return false;
+        return true;
     }
 };
