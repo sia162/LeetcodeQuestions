@@ -5,15 +5,19 @@ public:
         if(nums.size()<3) return 0;
         
         int count = 0;
+        int prevdiff = nums[1]-nums[0];
+        int currcount = 0;
         
-        for(int i=0;i<nums.size()-2;i++){
-            int diff = nums[i+1] - nums[i];
+        for(int i=1;i<nums.size()-1;i++){
+            int currdiff = nums[i+1] - nums[i];
             
-            for(int j=i+2;j<nums.size();j++){
-                if(nums[j] - nums[j-1] == diff)
-                    count++;
-                else break;
+            if(currdiff == prevdiff) currcount++;
+            else{
+                prevdiff = currdiff;
+                currcount = 0;
             }
+            
+          count +=currcount;
         }
         
         return count;
