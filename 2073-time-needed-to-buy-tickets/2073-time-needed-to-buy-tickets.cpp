@@ -3,20 +3,23 @@ public:
     int timeRequiredToBuy(vector<int>& tickets, int k) {
      
         int n = tickets.size();
-        int time = 0;
+        queue<pair<int,int>>q;
+        int time=1;
         
-        int i=0;
-        while(true){
-            if(tickets[i]==0){
-                i=(i+1)%n;
-                continue;}
+        for(int i=0;i<n;i++) q.push({i,tickets[i]});
+        
+        while(!q.empty())
+        {
+            int index = q.front().first;
+            int val = q.front().second;
+            q.pop();
+            val--;
             
-            time++;
-            tickets[i]--;
-            if(tickets[k]==0) return time;
+            if(val==0 && index==k) return time;
             
-            i=(i+1)%n;
-        }
+            if(val!=0) q.push({index,val});
+            time++; 
+        }  
         
         return time;
     }
