@@ -16,64 +16,62 @@ public:
         ListNode* node = head;
         
         int carry = 0;
+        
         while(l1!=NULL && l2!=NULL){
+            ListNode* node2 = new ListNode();
             int sum = l1->val + l2->val + carry;
             l1 = l1->next;
             l2 = l2->next;
             
             if(sum>9){
-                sum = sum%10;
                 carry = 1;
             }else{
                 carry = 0;
             }
-            
-            ListNode* n = new ListNode(sum);
-            node->next = n;
-            node = node->next;
+                node2->val = sum%10;
+                node->next = node2;
+                node = node2;
         }
         
         while(l1!=NULL){
+            ListNode* node2 = new ListNode();
             int sum = l1->val + carry;
             l1 = l1->next;
             
             if(sum>9){
-                sum = sum%10;
                 carry = 1;
             }else{
                 carry = 0;
             }
-            
-            ListNode* n = new ListNode(sum);
-            node->next = n;
-            node = node->next;
+                node2->val = sum%10;
+                node->next = node2;
+                node = node2;
         }
         
          while(l2!=NULL){
-            int sum = l2->val + carry;
+            ListNode* node2 = new ListNode();
+            int sum =l2->val + carry;
             l2 = l2->next;
             
             if(sum>9){
-                sum = sum%10;
                 carry = 1;
             }else{
                 carry = 0;
             }
-            
-            ListNode* n = new ListNode(sum);
-            node->next = n;
-            node = node->next;
+                node2->val = sum%10;
+                node->next = node2;
+                node = node2;
         }
         
-         if(carry){
-             ListNode* n = new ListNode(carry);
-            node->next = n;
-            node = node->next;
+        if(carry == 1){
+            ListNode* node2 = new ListNode();
+            node2->val = 1;
+            node->next = node2;
+            node = node2;
         }
+        
         
         return head->next;
-            
-        
     }
             
 };
