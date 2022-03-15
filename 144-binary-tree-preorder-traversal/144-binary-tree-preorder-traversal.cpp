@@ -19,14 +19,14 @@ public:
         stack<TreeNode*> st;
         st.push(root);
         
-        while(!st.empty()){
-            prevect.push_back(st.top()->val);
-            
-            TreeNode* temp = st.top();
+        while(!st.empty()){ 
+            TreeNode* top = st.top();
             st.pop();
             
-            if(temp->right!=NULL) st.push(temp->right);
-            if(temp->left!=NULL) st.push(temp->left);
+            prevect.push_back(top->val);
+            
+            if(top->right!=NULL) st.push(top->right);
+            if(top->left!=NULL) st.push(top->left);
         }
         
         return prevect;
