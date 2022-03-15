@@ -23,17 +23,15 @@ public:
         while(!q.empty()){
             
             vector<int> travsub;
-            vector<TreeNode*> children;
+            int size = q.size();
             
-            while(!q.empty()){
+            for(int i=0;i<size;i++){
                 travsub.push_back(q.front()->val);
-                if(q.front()->left!=NULL) children.push_back(q.front()->left);             
-                if(q.front()->right!=NULL) children.push_back(q.front()->right);
+                if(q.front()->left!=NULL) q.push(q.front()->left);             
+                if(q.front()->right!=NULL) q.push(q.front()->right);
                 q.pop();
             }
-                  
-            for(auto child:  children) q.push(child);
-                  
+                                    
             trav.push_back(travsub);
         }
                   
