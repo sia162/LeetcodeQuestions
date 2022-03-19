@@ -1,33 +1,44 @@
 class Solution {
 public:
     string minRemoveToMakeValid(string s) {
-        stack<int> st;
+//          stack<pair<char,int>> st;
+//         for(int i=s.length()-1;i>=0;i--){
+//             if(s[i] == '('){
+//                 if(!st.empty() && st.top().first == ')'){
+//                     st.pop();
+//                 }else{
+//                     st.push({s[i],i});
+//                 }
+//             }else if(s[i] == ')'){
+//                  st.push({s[i],i});
+//             }
+//         }
         
-        for(int i=0;i<s.length();i++){
-            if(s[i] == ')'){
-                if(!st.empty() && s[st.top()] == '('){
-                    st.pop();
-                }else{
-                    s[i] = '#';
-                }
-            }else if(s[i] == '('){
-                 st.push(i);
-            }
-        }
+//         string answer;
+//         for(int i=0;i<s.length();i++){
+//             if(!st.empty() && st.top().second == i){
+//                 st.pop();
+//             }else{
+//                 answer = answer + s[i];
+//             }
+//         }
+//         return answer;
         
-        while(!st.empty()){
-            s[st.top()] = '#';
-            st.pop();
-        }
-        
-        string answer;
-        for(int i =0;i<s.length();i++){
-            if(s[i] == '#')
-                continue;
-            
-            answer+=s[i];
-        }
-        
-        return answer;
+        int n= s.size();
+    stack<pair<char,int>> st;   //create a stack of pair<char,int> for recording index too
+     
+    //Part - 1 -> This loop is same as in the question Valid Parenthesis, we are just keeping invalid brackets and popping valid out of stack.
+    for(int i=n-1;i>=0;i--){
+        if(s[i]==')') st.push({s[i],i});     //if got a ')', then push it with it's index
+        if(s[i]=='(')
+            st.size() and st.top().first==')'? st.pop(): st.push({s[i],i});            //if got '(' then there are two cases
+    }
+
+    //Part-2 -> reconstruct a new string by ignoring all brackets wrt their position present in stack, and keep popping them
+    string ans="";  ans.reserve(n);
+    for(int i=0;i<n;i++)  
+        if(st.size() and st.top().second==i) st.pop();   else ans+= s[i];
+     
+    return ans;
     }
 };
