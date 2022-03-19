@@ -1,35 +1,36 @@
+***Approch 1 | Memory Limit***
+​
+stack<pair<char,int>> st;
+for(int i=0;i<s.length();i++){
+if(s[i] == ')'){
+if(!st.empty() && st.top().first == '('){
+st.pop();
+}else{
+st.push({s[i],i});
+}
+}else if(s[i] == '('){
+st.push({s[i],i});
+}
+}
+string answer;
+for(int i=s.length()-1;i>=0;i--){
+if(!st.empty() && st.top().second == i){
+st.pop();
+}else{
 answer = s[i] + answer;
 }
 }
 return answer;
-***Approch  2 | Memory Limit***
-​
-int count = 0;
+***No memory limit:***
+stack<int> st;
 for(int i=0;i<s.length();i++){
 if(s[i] == ')'){
-if(count == 0){
-s[i] = '#';
+if(!st.empty() && s[st.top()] == '('){
+st.pop();
 }else{
-count--;
-}
-}else if(s[i] == '(') count++;
-}
-count = 0;
-for(int i=s.length()-1;i>=0;i--){
-if(s[i] == '('){
-if(count == 0){
 s[i] = '#';
-}else{
-count--;
 }
-}else if(s[i] == ')') count++;
+}else if(s[i] == '('){
+st.push(i);
 }
-string answer;
-for(int i =0;i<s.length();i++){
-if(s[i] == '#')
-continue;
-answer+=s[i];
 }
-return answer;
-}
-​
