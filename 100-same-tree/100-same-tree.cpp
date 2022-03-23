@@ -15,7 +15,8 @@ public:
         if(p==NULL || q==NULL) return (p==q);
         
         return isSameTree(p->left,q->left)
-        && isSameTree(p->right,q->right)
-        && p->val == q->val; 
+        && p->val == q->val
+        && isSameTree(p->right,q->right);
+         
     }
 };
