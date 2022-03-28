@@ -29,3 +29,4 @@ public:
         return heightCheckBalance(root) != -1; 
     }
 };
+
