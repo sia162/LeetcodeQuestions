@@ -19,14 +19,16 @@ public:
         queue<TreeNode*> q;
         q.push(root);
         
-        int direction = 0; //right = 1 and left = 0
+        int direction = 0; //rightToLeft = 1 and leftToRight = 0
         while(!q.empty()){
-            vector<int> temp;
             int size = q.size();
+            vector<int> temp(size);
             
             for(int i=0;i<size;i++){
                 TreeNode* t = q.front();
-                temp.push_back(t->val);
+                
+                int index = direction? size-1-i : i;
+                temp[index] = t->val;
                 q.pop();
                 
                 if(t->left!=NULL) q.push(t->left);
@@ -34,13 +36,8 @@ public:
             
             }
             
-            if(!direction) ans.push_back(temp);
-            else{ 
-                reverse(temp.begin(),temp.end());
-                ans.push_back(temp);
-            }
-            direction = 1 - direction;
-          
+            ans.push_back(temp);
+            direction = !direction;
         }
         
         return ans;
