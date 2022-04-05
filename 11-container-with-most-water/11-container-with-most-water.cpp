@@ -7,15 +7,12 @@ public:
         int maxarea = 0;
         
         while(i<j){
-           
             currarea = min(height[i],height[j]) * (j-i);
             maxarea = max(maxarea,currarea);
             
             if(height[i]<height[j]) i++;
             else j--;   
         }
-   
-        
         return maxarea;
     }
 };
