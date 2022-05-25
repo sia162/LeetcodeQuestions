@@ -11,24 +11,26 @@
  */
 class Solution {
 public:
-    int maxpathsum = INT_MIN;
+    int ms = INT_MIN;
     
-    int MaxPathSumUsingHeightTraversal(TreeNode* root){
+    int maxPathSumThroughHeight(TreeNode* root){
         if(root == NULL) return 0;
         
-        int lsum = max(0,MaxPathSumUsingHeightTraversal(root->left));
-        int rsum = max(0,MaxPathSumUsingHeightTraversal(root->right));
+        int ls = max(maxPathSumThroughHeight(root->left),0);
+        int rs = max(maxPathSumThroughHeight(root->right),0);
         
-        maxpathsum = max(maxpathsum,(lsum + rsum + root->val));
+        ms = max(ms,root->val + ls+rs);
         
-        return root->val + max(rsum,lsum);
-        
+        return root->val + max(ls,rs);
     }
     
+    
+    
     int maxPathSum(TreeNode* root) {
+        
         if(root == NULL) return 0;
         
-        MaxPathSumUsingHeightTraversal(root);
-        return maxpathsum;
+        maxPathSumThroughHeight(root);
+        return ms;
     }
 };
