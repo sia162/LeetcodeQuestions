@@ -107,10 +107,7 @@ class Solution {
 public:
     
     void leftside(Node* root, vector<int>& ans){
-        ans.push_back(root->data);
-        
         if(root->left == NULL) return;
-        
         
         root = root->left;
         while(root->left!=NULL || root->right!=NULL){
@@ -118,7 +115,6 @@ public:
             if(root->left!=NULL) root = root->left;
             else root=root->right;
         }
-        
         return;
     }
     
@@ -142,7 +138,6 @@ public:
             else root=root->left;
         }
         
-        
         while(!s.empty()){
             ans.push_back(s.top());
             s.pop();
@@ -158,10 +153,9 @@ public:
         if(root==NULL) return {};
         
         vector<int> ans;
-        // ans.push_back(root->data);
-        if(root->left==NULL && root->right==NULL) return {root->data};
+        ans.push_back(root->data);
+        if(root->left==NULL && root->right==NULL) return ans;
        
-        
         leftside(root,ans);
         leafs(root,ans);
         rightside(root,ans);
