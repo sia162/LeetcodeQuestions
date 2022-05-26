@@ -12,23 +12,15 @@
 class Solution {
 public:
     
-    void leftsum(TreeNode* root,int& sum, int direction){
+    int sum = 0;
+    int sumOfLeftLeaves(TreeNode* root,int direction = 0) {
+        if(root==NULL) return 0;
         
-        if(direction && root->left == NULL && root->right == NULL) {sum+=root->val; return;}
+        if(direction && root->left == NULL && root->right == NULL) sum += root->val;
+            
+        sumOfLeftLeaves(root->left,1);
+        sumOfLeftLeaves(root->right,0); 
         
-        if(root->left) leftsum(root->left,sum,1);
-        if(root->right) leftsum(root->right,sum,0);
-        
-    }
-    
-    int sumOfLeftLeaves(TreeNode* root) {
-        
-        if(!root) return 0;
-        int sum = 0;
-        int direction = 0; //1->left and 0->right
-        
-        leftsum(root,sum,direction);
         return sum;
-        
     }
 };
