@@ -11,31 +11,20 @@
  */
 class Solution {
 public:
+    void preorder(TreeNode* root, vector<int>& ans,int level){
+        if(root==NULL) return;
+        
+        //reverse preorder that is: Root --> Right --> Left
+        if(level == ans.size()) ans.push_back(root->val);
+        preorder(root->right,ans,level+1);
+        preorder(root->left,ans,level+1);
+    }
+    
     vector<int> rightSideView(TreeNode* root) {
         if(root == NULL) return {};
-        map<int,int> nodes;
-        //level & nodes->val
+        vector<int> ans;        
         
-        queue<pair<TreeNode*,int>> q;
-        //for traversal // node & level
-        
-        q.push({root,0});
-        while(!q.empty()){
-            auto qele = q.front();
-            q.pop();
-            TreeNode* n = qele.first;
-            int l = qele.second;
-            
-            nodes[l] = n->val;
-            if(n->left) q.push({n->left,l+1});
-            if(n->right) q.push({n->right,l+1});
-        }
-        
-        vector<int> ans;
-        for(auto it : nodes){
-            ans.push_back(it.second);
-        }
-        
+        preorder(root,ans,0);
         return ans;
         
     }
