@@ -12,41 +12,45 @@
 class Solution {
 public:
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        
         map<int,map<int,multiset<int>>> nodes;
-        // verticle  //level, all nodes that that level
+        // verticles  //level & nodes on that level in sorted order
         
-        queue<pair<TreeNode*,pair<int,int>>> q;
-            // node         verticle,level
+        queue<pair<TreeNode*,pair<int,int>>> q; //queue for traversal around the tree
+                // Nodes    //verticle and level
         
+        //the main idea is to store all the nodes in a verticle order-wise with use of map (map will sort the verticle -->){...,-2,-1,0,1,2,...}
+        //first we travel the 0 verticle and add it further we move to the left side node oviously the left side verticle nodes will come
+        //first in the verticle order traversal so we have to decrease the verticle by 1 so that in the ma it gets sorted above.
+        //when we move towards right we increase verticle by 1 so that in map they get sorted later in the order.
+        //now for the level we also need a map so in-case we have 2 nodes in the same level we what them sorted as well. if we did not
+        //want this we could have used just a vector we put nodes of same verticle in one place.
         
         q.push({root,{0,0}});
         
         while(!q.empty()){
-            auto p = q.front();
+            auto qelement = q.front();
             q.pop();
-            TreeNode* n = p.first;
-            int v = p.second.first;
-            int l = p.second.second;
+            TreeNode* n = qelement.first;
+            int v = qelement.second.first;
+            int l = qelement.second.second;
             
             nodes[v][l].insert(n->val);
-            
             if(n->left) q.push({n->left,{v-1,l+1}});
             if(n->right) q.push({n->right,{v+1,l+1}});
         }
         
         
         vector<vector<int>> ans;
-        
-        for(auto mapitem : nodes){
-            vector<int> col;
-            for(auto t : mapitem.second){
-                col.insert(col.end(),t.second.begin(),t.second.end());
+        for(auto melement : nodes){
+            vector<int> vcol;
+            for(auto minner : melement.second){
+                vcol.insert(vcol.end(),minner.second.begin(),minner.second.end());
             }
             
-            ans.push_back(col);
+            ans.push_back(vcol);
         }
         
         return ans;
+        
     }
 };
