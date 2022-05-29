@@ -127,38 +127,22 @@ struct Node
  */
 
 //Function to return a list containing elements of left view of the binary tree.
+void preorder(Node* root, vector<int>& ans,int level){
+    if(root==NULL) return;
+    
+    //reverse preorder that is: Root --> Right --> Left
+    if(level == ans.size()) ans.push_back(root->data);
+    preorder(root->left,ans,level+1);
+    preorder(root->right,ans,level+1);
+}
+
 vector<int> leftView(Node *root)
 {
    // Your code here
     if(root == NULL) return {};
-        map<int,int> nodes;
-        //level & nodes->val
-        
-        queue<pair<Node*,int>> q;
-        //for traversal // node & level
-        
-        //the idea if simple as we did for the top view and bottom view. here is stolen from bottom view as we keep inserting elements
-        // or nodes into the map untill we get the last value/nodes on that particular level. Here we use simple level order traversal. and 
-        //consider level nodes. untill last on the level is reached.
-        
-        q.push({root,0});
-        while(!q.empty()){
-            auto qele = q.front();
-            q.pop();
-            Node* n = qele.first;
-            int l = qele.second;
-            
-            if(nodes.find(l) == nodes.end())
-                nodes[l] = n->data;
-            
-            if(n->left) q.push({n->left,l+1});
-            if(n->right) q.push({n->right,l+1});
-        }
-        
-        vector<int> ans;
-        for(auto it : nodes){
-            ans.push_back(it.second);
-        }
-        
-        return ans;
+    vector<int> ans;        
+    
+    preorder(root,ans,0);
+    return ans;
+    
 }
