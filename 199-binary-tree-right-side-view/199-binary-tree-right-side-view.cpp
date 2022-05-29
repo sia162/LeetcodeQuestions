@@ -26,6 +26,5 @@ public:
         
         preorder(root,ans,0);
         return ans;
-        
     }
 };
