@@ -11,44 +11,43 @@
  */
 class Solution {
 public:
-    
-    void convertToMirror(TreeNode* leftside){
-        if(leftside == NULL) return;
-        else {
-        TreeNode* temp;
-        convertToMirror(leftside->left);
-        convertToMirror(leftside->right);
-        
-        
-        temp = leftside->left;
-        leftside->left = leftside->right;
-        leftside->right = temp;
-        }
-        return;
-    }
-    
-    bool issame(TreeNode* a,TreeNode* b){
-        if(a == NULL && b == NULL) return true;
-        
-        if(a!=NULL && b!=NULL && a->val == b->val  && issame(a->left,b->left) && issame(a->right,b->right)){
-            return true;
+    void rtraverse(TreeNode* root,vector<int>& v){
+        if(root == NULL) {
+            v.push_back(NULL);
+            return;
         }
         
-        return false;
+        v.push_back(root->val);
+        rtraverse(root->left,v);
+        rtraverse(root->right,v);
     }
     
+    void ltraverse(TreeNode* root,vector<int>& v){
+        if(root == NULL){ 
+            v.push_back(NULL);
+            return;}
+        
+        v.push_back(root->val);
+        ltraverse(root->right,v);
+        ltraverse(root->left,v);
+    }
     
     bool isSymmetric(TreeNode* root) {
         
-        if(root == NULL) return false;
+        vector<int> tleft;
+        vector<int> tright;
         
-        convertToMirror(root->left);
+        ltraverse(root->left,tleft);
+        rtraverse(root->right,tright);
         
-        bool ans = issame(root->left,root->right);
+        if(tleft.size()!=tright.size()) return 0;
         
-        convertToMirror(root->left);
+        for(int i=0;i<tleft.size();i++){
+            if(tleft[i]!=tright[i])
+                return 0;
+        }
         
-        return ans;
+        return 1;
         
     }
 };
