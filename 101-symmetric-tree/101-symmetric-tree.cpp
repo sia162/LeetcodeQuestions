@@ -11,42 +11,17 @@
  */
 class Solution {
 public:
-    void rtraverse(TreeNode* root,vector<int>& v){
-        if(root == NULL) {
-            v.push_back(NULL);
-            return;
-        }
-        
-        v.push_back(root->val);
-        rtraverse(root->right,v);
-        rtraverse(root->left,v);
-    }
     
-    void ltraverse(TreeNode* root,vector<int>& v){
-        if(root == NULL){ 
-            v.push_back(NULL);
-            return;}
+    bool checkIsSymmetrical(TreeNode* left,TreeNode* right){
+        if(left==NULL || right == NULL) return right == left;
         
-        v.push_back(root->val);
-        ltraverse(root->left,v);
-        ltraverse(root->right,v);
+        if(left->val!=right->val) return 0;
+        
+        return checkIsSymmetrical(left->left,right->right) && 
+            checkIsSymmetrical(left->right,right->left);
     }
     
     bool isSymmetric(TreeNode* root) {
-        
-        vector<int> tleft;
-        vector<int> tright;
-        
-        ltraverse(root->left,tleft);
-        rtraverse(root->right,tright);
-        
-        if(tleft.size()!=tright.size()) return 0;
-        
-        for(int i=0;i<tleft.size();i++){
-            if(tleft[i]!=tright[i])
-                return 0;
-        }
-        
-        return 1; 
+        return root==NULL || checkIsSymmetrical(root->left,root->right);
     }
 };
