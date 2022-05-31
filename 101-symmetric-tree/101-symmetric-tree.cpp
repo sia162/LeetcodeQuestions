@@ -18,8 +18,8 @@ public:
         }
         
         v.push_back(root->val);
-        rtraverse(root->left,v);
         rtraverse(root->right,v);
+        rtraverse(root->left,v);
     }
     
     void ltraverse(TreeNode* root,vector<int>& v){
@@ -28,8 +28,8 @@ public:
             return;}
         
         v.push_back(root->val);
-        ltraverse(root->right,v);
         ltraverse(root->left,v);
+        ltraverse(root->right,v);
     }
     
     bool isSymmetric(TreeNode* root) {
@@ -47,7 +47,6 @@ public:
                 return 0;
         }
         
-        return 1;
-        
+        return 1; 
     }
 };
