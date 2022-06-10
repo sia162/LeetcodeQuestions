@@ -1,23 +1,27 @@
 class Solution {
 public:
-    int lengthOfLongestSubstring(string S) {
-        vector<int> lastindex(256,-1);
-        // vector<int> lastindex(26,-1);
+    int lengthOfLongestSubstring(string s) {
+        if(s.length() == 1) return 1;
         
-        int maxs = 0;
-        int i=0,j=0;
+        int maxlen = 0;
+        
+        for(int i=0;i<s.length();i++){
             
-        while(j<S.length() && i<S.length()){
-         
-            if(lastindex[S[j]] + 1 > i){
-                i = lastindex[S[j]] + 1;
+            string str = "";
+            for(int j=i;j<s.length();j++){
+                if(str.find(s[j]) == string::npos)
+                    str = str + s[j];
+                else{
+                    int l = str.length();
+                    maxlen = max(maxlen,l);
+                    break;
+                }
             }
             
-            lastindex[S[j]] = j;
-            maxs = max(maxs,j-i+1);
-            j++;
+            int l = str.length();
+            maxlen = max(maxlen,l);
         }
         
-        return maxs;
+        return maxlen; 
     }
 };
