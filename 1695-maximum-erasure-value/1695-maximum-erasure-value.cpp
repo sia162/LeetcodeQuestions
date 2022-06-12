@@ -10,20 +10,14 @@ public:
             if(m.find(nums[j]) == m.end()){
                 sum = sum + nums[j];
                 m[nums[j]] = j;
+                j++;
             }else{
-                int index = m[nums[j]] + 1;
-                while(i!=index){
-                    sum = sum - nums[i];
-                    m.erase(nums[i]);
-                    i++;
-                }
-                
-                m[nums[j]] = j;
-                sum = sum + nums[j];
+                sum = sum - nums[i];
+                m.erase(nums[i]);
+                i++;
             }
             
             ans = max(ans,sum);
-            j++;
         }
         
         return ans;
