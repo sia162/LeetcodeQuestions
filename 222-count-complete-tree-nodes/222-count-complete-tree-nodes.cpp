@@ -11,19 +11,31 @@
  */
 class Solution {
 public:
-    void preorder(TreeNode* root,int& ans){
-        if(!root) return;
-        
-        ans++;
-        preorder(root->left,ans);
-        preorder(root->right,ans);
+    int Lheight(TreeNode* node){
+        int h = 0;   
+        while(node){
+            h++;
+            node = node->left;
+        } 
+        return h;
     }
     
+    int Rheight(TreeNode* node){
+        int h = 0;   
+        while(node){
+            h++;
+            node = node->right;
+        } 
+        return h;
+    }
+
     int countNodes(TreeNode* root) {
-        if(!root) return 0;
+       if(root == NULL) return 0;
+
+        int lh = Lheight(root);
+        int rh = Rheight(root);
         
-        int ans = 0;
-        preorder(root,ans);
-        return ans;
+        if(lh == rh) return (1<<lh)-1; //no of nodes when complete filled binary tree
+        return 1 + countNodes(root->left) + countNodes(root->right);
     }
 };
