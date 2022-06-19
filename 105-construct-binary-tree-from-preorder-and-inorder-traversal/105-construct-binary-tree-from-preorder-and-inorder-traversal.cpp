@@ -17,14 +17,13 @@ public:
         
         TreeNode* root = new TreeNode(preorder[preStart]);
         
-        int inRoot = inMap[root->val]; //finding root in inorder vector
-        int numsLeft = inRoot - inStart; //starting vector elements in the vector
+        int inRoot = inMap[root->val]; //finding root index in inorder vector
+        int numsLeft = inRoot - inStart; //elements before root in inorder
         
         root->left = build(preorder , preStart+1 , preStart+numsLeft , inorder, inStart,  inRoot - 1, inMap);
         root->right = build(preorder , preStart+numsLeft+1, preEnd , inorder , inRoot +1, inEnd, inMap);
         
         return root;
-        
     }
     
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
