@@ -1,17 +1,33 @@
+**Recursive and iterative**
 ```
-stack<TreeNode*> st;
-TreeNode* temp = root;
+class Solution {
+public:
+vector<int> inordertraverse;
+//     void inorder(TreeNode* root){
+//         if(root == NULL) return;
+//         inorder(root->left);
+//         inordertraverse.push_back(root->val);
+//         inorder(root->right);
+//     }
+vector<int> inorderTraversal(TreeNode* root) {
+if(root == NULL) return {};
+stack<TreeNode*> s;
+TreeNode* node = root;
 while(true){
-if(temp!=NULL){
-st.push(temp);
-temp = temp->left;
+if(node!=NULL){
+s.push(node);
+node = node->left;
 }else{
-if(st.empty()) break;
-temp = st.top();
-st.pop();
-inordertraverse.push_back(temp->val);
-temp = temp->right;
+if(s.empty()) break;
+node = s.top();
+inordertraverse.push_back(node->val);
+s.pop();
+node = node->right;
 }
 }
 return inordertraverse;
+}
+};
 ```
+​
+​
