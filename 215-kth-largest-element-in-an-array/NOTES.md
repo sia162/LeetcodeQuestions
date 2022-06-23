@@ -12,3 +12,12 @@ return pq.top();
 };
 ```
 ​
+​
+*Approch T- 0(NlogN)*
+​
+```
+int findKthLargest(vector<int>& nums, int k) {
+sort(nums.begin(),nums.end());
+int ans = nums[nums.size()-k];
+return ans;
+}
