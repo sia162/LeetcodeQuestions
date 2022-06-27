@@ -1,3 +1,4 @@
+***APPROCH 1***
 ```
 class Solution {
 public:
@@ -22,4 +23,9 @@ return ans;
 }
 };
 ```
+​
+​
+​
+​
+***APPROCH 2***
 ​
