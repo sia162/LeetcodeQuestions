@@ -11,8 +11,10 @@ class Solution {
         vector<int> bfs;    //to be returned
         queue<int> q;       
         vector<int> visited(v+1,0);
-        q.push(0);
         
+        q.push(0); //0 1 2 3 ----- v-1 || nodes
+        
+        visited[0] = true;
         while(!q.empty()){
             int node=q.front();
             q.pop();
