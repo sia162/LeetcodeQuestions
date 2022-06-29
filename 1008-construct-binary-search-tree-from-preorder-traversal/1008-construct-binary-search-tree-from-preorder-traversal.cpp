@@ -11,32 +11,18 @@
  */
 class Solution {
 public:
-    TreeNode* solveHere(vector<int> preorder, int preStart, int preEnd, vector<int> inorder, int inStart, int inEnd, unordered_map<int,int> inMap){
-        if(inStart>inEnd || preStart>preEnd) return NULL;
+    TreeNode* solveHere(vector<int> preorder,int& i,int upperbound){
+        if(i==preorder.size() || preorder[i]>upperbound) return NULL;
         
-        TreeNode* root = new TreeNode(preorder[preStart]);
+        TreeNode* root = new TreeNode(preorder[i++]);
         
-        int inRoot = inMap[root->val];
-        int numsLeft = inRoot - inStart;
-        
-        root->left = solveHere(preorder,preStart+1,preStart+numsLeft,inorder,inStart,inRoot-1,inMap);
-        root->right = solveHere(preorder,preStart+numsLeft+1,preEnd,inorder,inRoot+1,inEnd,inMap);
+        root->left = solveHere(preorder,i,root->val);
+        root->right = solveHere(preorder,i,upperbound); 
         return root;
-        
     }
     
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        vector<int> inorder;
-        
-        for(auto val:preorder) inorder.push_back(val);
-        sort(inorder.begin(),inorder.end());
-        
-        unordered_map<int,int> inMap;
-        for(int i=0;i<inorder.size();i++){
-            inMap[inorder[i]] = i;
-        }
-        
-        TreeNode* root = solveHere(preorder,0,preorder.size()-1,inorder,0,inorder.size()-1,inMap);
-        return root;
+        int i=0;
+        return solveHere(preorder,i,INT_MAX);
     }
 };
