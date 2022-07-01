@@ -3,24 +3,21 @@ public:
     bool isSubsequence(string s, string t) {
         if(s.length()>t.length()) return false;
         
-        int jStart = 0;
+        int k = s.length();
         
-        int count = 0;
-        for(int i=0;i<s.length();i++){
-            char toMatch = s[i];
-            
-            for(int j=jStart;j<t.length();j++){
-                if(toMatch == t[j]){
-                    count++;
-                    jStart = j+1;
-                    break;
-                }
+        for(int i=0,j=0;i<s.length() && j<t.length();){
+            if(s[i]==t[j]){
+                i++;
+                k--;
             }
+            
+            j++;
         }
         
-        if(count == s.length()) return true;
-        
-        return false;
+        if(k)
+            return false;
+            
+        return true;
         
     }
 };
