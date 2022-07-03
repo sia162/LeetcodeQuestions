@@ -24,3 +24,14 @@ return list2;
 }
 };
 ```
+​
+​
+***NON recursive approch***
+```
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+ListNode* start = new ListNode(0);
+ListNode* temp = start;
+while(list1!=NULL && list2!=NULL){
+if(list1->val<=list2->val){
+temp->next = list1;
+temp = temp->next;
