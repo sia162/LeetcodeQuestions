@@ -11,32 +11,19 @@
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        
-//recurive approch        
         if(head == NULL || head->next == NULL) return head;
         
-        ListNode* newhead = reverseList(head->next);
-        ListNode* headnext = head->next;
+        ListNode* prev = NULL;
+        ListNode* cur = head;
+        ListNode* ahead;
         
-        headnext->next = head;
-        head->next = NULL;
-        return newhead;
+        while(cur!=NULL){
+            ahead = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = ahead;
+        }
         
-        
-        
-//iterative approch
-//         ListNode* prev = NULL;
-//         ListNode* curr = head;
-//         ListNode* nxt;
-        
-//         while(curr!=NULL){
-//             nxt = curr->next;
-//             curr->next = prev;
-//             prev = curr;
-//             curr = nxt;
-//         }
-        
-//         return prev;
-        
+        return prev;
     }
 };
