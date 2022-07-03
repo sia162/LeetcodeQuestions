@@ -13,11 +13,15 @@ class BSTIterator {
 public:
     stack<TreeNode*> st;
     
-    BSTIterator(TreeNode* root) {
-        while(root!=NULL){
+    void insertLeftNodes(TreeNode* root){
+         while(root!=NULL){
             st.push(root);
             root = root->left;
         }
+    }
+    
+    BSTIterator(TreeNode* root) {
+       insertLeftNodes(root);
     }
     
     int next() {
@@ -27,22 +31,13 @@ public:
         
         if(node->right!=NULL){
             node = node->right;
-            
-            while(node!=NULL){
-                st.push(node);
-                node = node->left;
-            }
+            insertLeftNodes(node);
         }
-        
         return ans;
-        
     }
     
     bool hasNext() {
-        // cout<<st.top()->val<<" ";
-        
         if(!st.empty()) return true;
-        
         return false;
     }
 };
