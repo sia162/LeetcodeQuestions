@@ -11,23 +11,68 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root,vector<int> &inordertrav){
-        if(root == NULL) return;
+    stack<TreeNode*> st1;
+    stack<TreeNode*> st2;
+    
+    int next(){
+        TreeNode* node = st1.top();
+        int val = node->val;
+        st1.pop();
         
-        inorder(root->left,inordertrav);
-        inordertrav.push_back(root->val);
-        inorder(root->right,inordertrav);
+        while(node!=NULL){
+            node = node->right;
+            while(node!=NULL){
+                st1.push(node);
+                node = node->left;
+            }
+        }
+       
+        return val;
     }
     
-    bool findTarget(TreeNode* root, int k) {
-        vector<int> inordertrav;
-        inorder(root,inordertrav);
     
+    int before(){
+        TreeNode* node = st2.top();
+        int val = node->val;
+        st2.pop();
         
-        for(int i=0,j=inordertrav.size()-1;i<j;){
-            if(inordertrav[i]+inordertrav[j] == k) return true;
-            else if(inordertrav[i]+inordertrav[j] > k) j--;
-            else i++;
+        while(node!=NULL){
+            node = node->left;
+            while(node!=NULL){
+                st2.push(node);
+                node = node->right;
+            }
+        }
+       
+        return val;
+    }
+    
+    
+    bool findTarget(TreeNode* root, int k) {
+      
+        //FOR NEXT()
+        TreeNode* temp = root;
+        while(temp!=NULL){
+            st1.push(temp);
+            temp = temp->left;
+        }
+        
+        //FOR BEFORE()
+        temp = root;
+        while(temp!=NULL){
+            st2.push(temp);
+            temp = temp->right;
+        }
+        
+        
+        int i,j;
+        i=next();
+        j=before();
+        
+        while(i<j){
+            if(i+j == k) return true;
+            else if(i+j > k) j = before();
+            else i = next();
         }
         
         return false;
