@@ -22,14 +22,13 @@ public:
     bool findTarget(TreeNode* root, int k) {
         vector<int> inordertrav;
         inorder(root,inordertrav);
-        unordered_map<int,int> m;
+    
         
-        for(int i=0;i<inordertrav.size();i++){
-            if(m.find(k - inordertrav[i]) != m.end()) return true;
-            
-            m[inordertrav[i]] = i;
+        for(int i=0,j=inordertrav.size()-1;i<j;){
+            if(inordertrav[i]+inordertrav[j] == k) return true;
+            else if(inordertrav[i]+inordertrav[j] > k) j--;
+            else i++;
         }
-        
         
         return false;
     }
