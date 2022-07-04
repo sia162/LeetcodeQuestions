@@ -9,70 +9,58 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+
+class BSTIterator {
+public:
+    stack<TreeNode*> st;
+    bool flag;
+    // flag == true   | before()
+    // flag == false  | next()
+    
+    BSTIterator(TreeNode* root,bool isFlag){
+        flag = isFlag;
+        pushAll(root);
+    }
+    
+    int bstNextBefore(){
+        TreeNode* n = st.top();
+        st.pop();
+        
+        if(flag){
+            pushAll(n->left);
+        }else{
+            pushAll(n->right);
+        }
+        return n->val;
+    }
+    
+private:
+    void pushAll(TreeNode* node){
+        while(node!=NULL){
+            st.push(node);
+            if(flag) node = node->right;
+            else node = node->left;
+        }
+    }
+};
+
 class Solution {
 public:
-    stack<TreeNode*> st1;
-    stack<TreeNode*> st2;
-    
-    int next(){
-        TreeNode* node = st1.top();
-        int val = node->val;
-        st1.pop();
-        
-        while(node!=NULL){
-            node = node->right;
-            while(node!=NULL){
-                st1.push(node);
-                node = node->left;
-            }
-        }
-       
-        return val;
-    }
-    
-    
-    int before(){
-        TreeNode* node = st2.top();
-        int val = node->val;
-        st2.pop();
-        
-        while(node!=NULL){
-            node = node->left;
-            while(node!=NULL){
-                st2.push(node);
-                node = node->right;
-            }
-        }
-       
-        return val;
-    }
-    
-    
     bool findTarget(TreeNode* root, int k) {
-      
-        //FOR NEXT()
-        TreeNode* temp = root;
-        while(temp!=NULL){
-            st1.push(temp);
-            temp = temp->left;
-        }
+        if(!root) return false;
         
-        //FOR BEFORE()
-        temp = root;
-        while(temp!=NULL){
-            st2.push(temp);
-            temp = temp->right;
-        }
+        BSTIterator next(root,false);
+        BSTIterator before(root,true);
         
+        int i = next.bstNextBefore();
+        int j = before.bstNextBefore();
         
-        int i,j;
-        i=next();
-        j=before();
         
         while(i<j){
             if(i+j == k) return true;
-            else if(i+j > k) j = before();
-            else i = next();
+            else if(i+j > k) j = before.bstNextBefore();
+            else i = next.bstNextBefore();
         }
         
         return false;
