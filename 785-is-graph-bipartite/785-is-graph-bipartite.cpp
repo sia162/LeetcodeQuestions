@@ -6,31 +6,22 @@ public:
         
         q.push(i);
         colorvis[i] = 1;
-        int tag;
         
         while(!q.empty()){
             int node = q.front();
             q.pop();
-            tag = true;
             
             for(auto n : graph[node]){
                 if(colorvis[n] == -1){
                     q.push(n);
                     colorvis[n] = !colorvis[node];
                 }else if(colorvis[n] == colorvis[node]){
-                    tag = false;
-                    break;
+                    return false;
                 }
             }
-            
-            if(tag == false)
-                break;
         }
-        
-        
-        if(tag == false) return false;
+ 
         return true;
-        
     }
     
     bool isBipartite(vector<vector<int>>& graph) {
