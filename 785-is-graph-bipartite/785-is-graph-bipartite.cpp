@@ -1,26 +1,20 @@
 class Solution {
 public:
     
-    bool isBiSolveHere(int i,vector<vector<int>> graph,vector<int>& colorvis){
-        queue<int> q;
-        
-        q.push(i);
-        colorvis[i] = 1;
-        
-        while(!q.empty()){
-            int node = q.front();
-            q.pop();
-            
-            for(auto n : graph[node]){
-                if(colorvis[n] == -1){
-                    q.push(n);
-                    colorvis[n] = !colorvis[node];
-                }else if(colorvis[n] == colorvis[node]){
-                    return false;
-                }
+    bool isBiSolveHereDfs(int i,vector<vector<int>> graph,vector<int>& colorvis){
+        if(colorvis[i] == -1)
+            colorvis[i] = 1;
+     
+        for(auto n : graph[i]){
+            if(colorvis[n] == -1){
+                colorvis[n] = !colorvis[i];
+                
+                if(!isBiSolveHereDfs(n,graph,colorvis)) return false;
+            }else if(colorvis[n] == colorvis[i]){
+                return false;
             }
         }
- 
+
         return true;
     }
     
@@ -30,7 +24,7 @@ public:
         
         for(int i=0;i<graph.size();i++){
             if(colorvis[i] == -1){
-                if(!isBiSolveHere(i,graph,colorvis))
+                if(!isBiSolveHereDfs(i,graph,colorvis))
                     return false;
             }
         }
