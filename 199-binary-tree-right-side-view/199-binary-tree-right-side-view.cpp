@@ -11,29 +11,20 @@
  */
 class Solution {
 public:
+    void inorder(TreeNode* root,vector<int>& rview,int level){
+        if(root==NULL) return;
+        
+        if(level == rview.size()) rview.push_back(root->val);
+        inorder(root->right,rview,level+1);
+        inorder(root->left,rview,level+1);
+    }
+    
     vector<int> rightSideView(TreeNode* root) {
         if(root == NULL) return {};
         // reverse inorder -> right root left
-        map<int,int> rviewMap;
-        
-        queue<pair<TreeNode*,int>> q;
-        q.push({root,0});
-        
-        while(!q.empty()){
-            TreeNode* n = q.front().first;
-            int l = q.front().second;
-            q.pop();
-            
-            rviewMap[l] = n->val;
-            if(n->left) q.push({n->left,l+1});
-            if(n->right) q.push({n->right,l+1});
-        }
-        
         vector<int> rview;
-        
-        for(auto t: rviewMap){
-            rview.push_back(t.second);
-        }
+    
+        inorder(root,rview,0);
         
         return rview;
     } 
