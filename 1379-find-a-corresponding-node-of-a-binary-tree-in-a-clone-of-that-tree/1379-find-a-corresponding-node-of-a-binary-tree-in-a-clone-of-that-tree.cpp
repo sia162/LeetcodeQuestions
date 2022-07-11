@@ -10,19 +10,19 @@
 
 class Solution {
 public:
-    void inorder(TreeNode* root,TreeNode* t,TreeNode* &ans){
-        if(root == NULL) return;
-        
-        inorder(root->left,t,ans);
-        if(root->val == t->val){
-            ans = root;
+     void inorder(TreeNode* o, TreeNode* c,TreeNode*& ans,TreeNode* target) {
+        if (o != NULL) {
+            inorder(o->left, c->left,ans,target);
+            if (o == target) {
+                ans = c;    
+            }
+            inorder(o->right, c->right,ans,target);    
         }
-        inorder(root->right,t,ans);
     }
     
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
         TreeNode* ans = NULL;
-        inorder(cloned,target,ans);
+        inorder(original,cloned,ans,target);
         
         return ans;
     }
