@@ -11,27 +11,21 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root,vector<int>& intrav){
+    void inorder(TreeNode* root,TreeNode*& temp){
         if(root == NULL) return;
         
-        inorder(root->left,intrav);
-        intrav.push_back(root->val);
-        inorder(root->right,intrav);
+        inorder(root->left,temp);
+        temp->right = new TreeNode(root->val);
+        temp = temp->right;
+        inorder(root->right,temp);
     }
     
     TreeNode* increasingBST(TreeNode* root) {
-        vector<int> intrav;
         
-        inorder(root,intrav);
-        
-        TreeNode* nroot = new TreeNode(intrav[0]);
+        TreeNode* nroot = new TreeNode(0);
         TreeNode* temp = nroot;
+        inorder(root,temp);
         
-        for(int i=1;i<intrav.size();i++){
-            temp->right = new TreeNode(intrav[i]);
-            temp = temp->right;
-        }
-        
-        return nroot;
+        return nroot->right;
     }
 };
