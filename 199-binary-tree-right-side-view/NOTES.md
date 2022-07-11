@@ -24,6 +24,3 @@ vector<int> ans;
 for(auto it : nodes){
 ans.push_back(it.second);
 }
-return ans;
-}
-```
