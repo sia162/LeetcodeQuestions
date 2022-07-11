@@ -5,39 +5,34 @@ using namespace std;
  // } Driver Code Ends
 class Solution {
   public:
-  
-  bool checkCycle(int i,vector<int> adj[],vector<int>& vis,vector<int>& dfsvis){
-      vis[i] = 1;
-      dfsvis[i] = 1;
-      
-      for(auto n: adj[i]){
-          if(!vis[n]){
-              if(checkCycle(n,adj,vis,dfsvis)){
-                  return true;
-              }
-          }else if(dfsvis[n]) return true;
-      }
-      
-      dfsvis[i] = 0;
-      return false;
-  }
-  
     // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        
-        vector<int> vis(V+1,0);
-        vector<int> dfsvis(V+1,0);
+        int cnt = 0;
+        vector<int> indegree(V+1,0);
+        queue<int> q;
         
         for(int i=0;i<V;i++){
-            if(!vis[i]){
-                if(checkCycle(i,adj,vis,dfsvis)){
-                    return true;
-                }
+            for(auto n: adj[i]) indegree[n]++;
+        }
+        
+        for(int i=0;i<V;i++){
+            if(indegree[i] == 0) q.push(i);
+        }
+        
+        while(!q.empty()){
+            int n = q.front();
+            q.pop();
+            cnt++;
+            //toposort array
+            for(auto it: adj[n]){
+                indegree[it]--;
+                if(indegree[it] == 0) q.push(it);
             }
         }
         
-        return false;
+        if(cnt == V) return false;
+        return true;
     }
 };
 
