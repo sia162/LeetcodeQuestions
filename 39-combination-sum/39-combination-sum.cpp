@@ -1,26 +1,28 @@
 class Solution {
-    void combination(vector<int>& candidates, int target, vector<int> currComb, int currSum, int currIndex, vector<vector<int>>& ans){
-        if(currSum>target) return; //backtrack
-        if(currSum==target){
-            ans.push_back(currComb); //store the solution and backtrack
+public:
+    void combinationSum(int i,vector<int> c,vector<int>& seq,vector<vector<int>>& combsum,int target){
+        if(i>=c.size()){
+           if(target == 0){
+                combsum.push_back(seq);
+            } 
             return;
         }
         
-        for(int i=currIndex; i<candidates.size(); i++){ //try all possible options for the next level
-            currComb.push_back(candidates[i]); //put 1 option into the combination
-            currSum+=candidates[i];
-            combination(candidates, target, currComb, currSum, i, ans); //try with this combination, whether it gives a solution or not.
-            currComb.pop_back(); //when this option backtrack to here, remove this and go on to the next option.
-            currSum-=candidates[i];
+        if(c[i]<=target){
+            seq.push_back(c[i]);
+            combinationSum(i,c,seq,combsum,target-c[i]);
+            seq.pop_back();
         }
-        
+   
+        combinationSum(i+1,c,seq,combsum,target);
     }
-    
-    public:
-        vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-            vector<vector<int>> ans;
-            vector<int> currComb;
-            combination(candidates, target, currComb, 0, 0, ans);
-            return ans;
+     
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int> seq;
+        vector<vector<int>> combsum;
+        
+        combinationSum(0,candidates,seq,combsum,target);
+        
+        return combsum;
     }
 };
