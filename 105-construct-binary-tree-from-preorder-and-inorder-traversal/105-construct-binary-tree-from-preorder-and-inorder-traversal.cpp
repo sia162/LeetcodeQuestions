@@ -11,7 +11,6 @@
  */
 class Solution {
 public:
-    
     TreeNode* build(vector<int>& preorder,int preStart,int preEnd,vector<int>& inorder,int inStart,int inEnd,map<int,int>& inMap){
         if(preStart>preEnd || inStart>inEnd) return NULL;
         
@@ -20,8 +19,8 @@ public:
         int inRoot = inMap[root->val]; //finding root index in inorder vector
         int numsLeft = inRoot - inStart; //elements before root in inorder
         
-        root->left = build(preorder , preStart+1 , preStart+numsLeft , inorder, inStart,  inRoot - 1, inMap);
-        root->right = build(preorder , preStart+numsLeft+1, preEnd , inorder , inRoot +1, inEnd, inMap);
+        root->left = build(preorder , preStart+1 , preStart+numsLeft , inorder, inStart,  inRoot - 1, inMap); //left subtree
+        root->right = build(preorder , preStart+numsLeft+1, preEnd , inorder , inRoot +1, inEnd, inMap); // right subtree
         
         return root;
     }
