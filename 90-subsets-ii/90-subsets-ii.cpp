@@ -1,35 +1,30 @@
 class Solution {
 public:
-    void subsetsII(int i, vector<int> nums,vector<int> &seq,vector<vector<int>> &ans){
-        if(i == nums.size()){
-            ans.push_back(seq);
-            return;
-        }
-      
-        seq.push_back(nums[i]);
-        subsetsII(i+1,nums,seq,ans);
-        seq.pop_back();
-        subsetsII(i+1,nums,seq,ans);
-        
-    }
-    
+ 
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
         
-        vector<int> seq;
-        vector<vector<int>> ans;
-        
-        subsetsII(0,nums,seq,ans);
-        
-        set<vector<int>> s;
-        for(auto it: ans){
-            sort(it.begin(),it.end());
-            s.insert(it);
+        int n = nums.size();
+        sort(nums.begin(),nums.end());
+       
+       set<vector<int>> setsub;
+       
+        for(int i = 0;i < (1<<n); i++){
+            vector<int> now;
+            
+            for(int j = 0 ;j < n; j++){
+                if(i&(1<<j)){
+                    now.push_back(nums[j]);
+                }
+            }
+            
+            setsub.insert(now);
         }
-        
-        vector<vector<int>> finalans;
-        
-        for(auto it: s) finalans.push_back(it);
-        
-        return finalans;
+       
+       
+        vector<vector<int>> ans;
+        for(auto it : setsub){
+            ans.push_back(it);
+        }
+        return ans;
     }
 };
