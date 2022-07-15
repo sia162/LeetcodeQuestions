@@ -1,34 +1,25 @@
 class Solution {
 public:
-    
-    vector<vector<int>> ans;
-    
-    void uniqueSubsets(vector<int> ip , vector<int> op){
+    vector<vector<int>> subsets(vector<int>& nums) {
+        int n = nums.size();
+        vector<vector<int>> ans;
         
-        if(ip.size()==0){
-            ans.push_back(op);
-            return;
+        for (int num = 0; num < (1 << n); num++) {
+            vector<int> sub;
+            
+            for (int i = 0; i < n; i++) {
+                //check if the ith bit is set or not
+                if (num & (1 << i)) {
+                    sub.push_back(nums[i]);
+                }
+            }
+            
+            // if (sub.size() > 0) {
+                ans.push_back(sub);
+            // }
         }
         
-        vector<int> op1 = op;
-        vector<int> op2 = op;
-        
-        op2.push_back(ip[0]);
-        ip.erase(ip.begin() + 0);
-        
-        uniqueSubsets(ip,op1);
-        uniqueSubsets(ip,op2);
-        
-        return;
-    }
-    
-    
-    vector<vector<int>> subsets(vector<int>& nums) {
-        
-        vector<int> op;
-        uniqueSubsets(nums,op);
-        
+        // sort(ans.begin(), ans.end());
         return ans;
-        
     }
 };
