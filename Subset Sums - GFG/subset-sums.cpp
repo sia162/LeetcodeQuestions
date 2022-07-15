@@ -28,7 +28,7 @@ public:
         int sum = 0;
         subsets(0,arr,sum,ans);
         
-        sort(ans.begin(),ans.end());
+        // sort(ans.begin(),ans.end());
         return ans;
     }
 };
