@@ -1,37 +1,23 @@
 class Solution {
 public:
-    void solveHere(vector<int> nums,vector<int> &perms,vector<vector<int>> &ans,unordered_map<int,bool> &marked){
-        if(perms.size() == nums.size()){
-            ans.push_back(perms);
+    void solveHere(int ind,vector<int> &nums,vector<vector<int>> &ans){
+        if(ind == nums.size()){
+            ans.push_back(nums);
             return;
         }
         
-        
-        for(int i=0;i<nums.size();i++){
-            if(!marked[i]){
-                marked[i] = 1;
-                perms.push_back(nums[i]);
-                
-                solveHere(nums,perms,ans,marked);
-                
-                marked[i] = 0;
-                perms.pop_back();
-            }
-            
+        for(int i=ind;i<nums.size();i++){
+            swap(nums[i],nums[ind]);
+            solveHere(ind+1,nums,ans);
+            swap(nums[i],nums[ind]);
         }
     }
     
     vector<vector<int>> permute(vector<int>& nums) {
-        unordered_map<int,bool> marked;
-        vector<int> perms;
         vector<vector<int>> ansperms;
         
-        
-        for(int i=0;i<nums.size();i++) marked[i] = 0;
-        
-        solveHere(nums,perms,ansperms,marked);
+        solveHere(0,nums,ansperms);
         
         return ansperms;
-        
     }
 };
