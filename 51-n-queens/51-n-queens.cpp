@@ -1,47 +1,26 @@
 class Solution {
 public:
-    bool isSafe(int col,int row,int n,vector<string> board){
-        int r = row;
-        int c = col;
-        
-        while(c>=0 && r>=0){
-            if(board[r][c] == 'Q') return false;
-            r--;
-            c--;
-        }
-        
-        r = row;
-        c = col;
-        
-        while(c>=0){
-            if(board[r][c] == 'Q') return false;
-            c--;
-        }
-        
-        r = row;
-        c = col;
-        
-        while(c>=0 && r<n){
-            if(board[r][c] == 'Q') return false;
-            r++;
-            c--;
-        }
-        
-        return true;
-    }
-    
-  
-    void solve(int col,vector<string> &board,vector<vector<string>> &ans,int n){
+    void solve(int col,vector<string> &board,vector<vector<string>> &ans,int n,vector<int> &leftRow,vector<int> &lowerDiagonal,vector<int> &upperDiagonal){
         if(col == n){
             ans.push_back(board);
             return;
         }
         
         for(int row=0;row<n;row++){
-            if(isSafe(col,row,n,board)){
+            if(leftRow[row] == 0 && lowerDiagonal[row+col] == 0 && upperDiagonal[n-1+col-row] == 0){
                 board[row][col] = 'Q';
-                solve(col+1,board,ans,n);
+                
+                leftRow[row] = 1;
+                lowerDiagonal[row+col] = 1;
+                upperDiagonal[n-1+col-row] = 1;
+                
+                solve(col+1,board,ans,n,leftRow,lowerDiagonal,upperDiagonal);
+                
                 board[row][col] = '.';
+                
+                leftRow[row] = 0;
+                lowerDiagonal[row+col] = 0;
+                upperDiagonal[n-1+col-row] = 0;
             }
         }
     }
@@ -53,7 +32,8 @@ public:
         
         for(int i=0;i<n;i++) board[i] = s;
         
-        solve(0,board,ans,n);
+        vector<int> leftRow(n,0), lowerDiagonal(2*n-1,0), upperDiagonal(2*n-1,0);
+        solve(0,board,ans,n,leftRow,lowerDiagonal,upperDiagonal);
         
         return ans;
     }
