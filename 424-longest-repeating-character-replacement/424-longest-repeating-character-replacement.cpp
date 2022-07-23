@@ -6,6 +6,7 @@ public:
         
         int i=0,j=0;
         int maxFreqElementTillNow = 0;
+        
         while(j<s.length()){
             m[s[j]]++;
             
@@ -18,7 +19,7 @@ public:
                 i++;
             }
             
-            windowlen = j-i+1;
+            windowlen = j-i+1; 
             maxlen = max(maxlen,windowlen);
             j++;
         }
