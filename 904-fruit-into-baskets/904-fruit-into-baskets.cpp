@@ -15,13 +15,8 @@ public:
                 i++;
            }
             
-            
-            int newc = 0;
-            for(auto it: m){
-                newc += it.second;
-            }
-            
-            count = max(count,newc);
+    
+            count = max(count,j-i+1);
         }
         
         return count;
