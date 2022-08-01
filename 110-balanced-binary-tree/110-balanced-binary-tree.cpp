@@ -10,25 +10,25 @@
  * };
  */
 class Solution {
-public:
-    int checkBalanceWitHheight(TreeNode* root){
+public: 
+    int solveHere(TreeNode* root){
         if(root == NULL) return 0;
         
-        int l = checkBalanceWitHheight(root->left);
-        if(l == -1) return -1;
-        int r = checkBalanceWitHheight(root->right);
-        if(r == -1) return -1;
-            
-            
-        if(abs(l - r) > 1) return -1;
+        int lh = solveHere(root->left);
+        if(lh == -1) return -1;
+        int rh = solveHere(root->right);
+        if(rh == -1) return -1;
         
-        return 1 + max(l,r);
-       
+        if(abs(lh-rh) > 1) return -1;
+        
+        return max(lh,rh) + 1;
     }
     
     bool isBalanced(TreeNode* root) {
         
-        if(root == NULL) return 1;
-        return checkBalanceWitHheight(root) == -1? 0 : 1;
+        if(solveHere(root) == -1)
+            return false;
+        
+        return true;
     }
 };
