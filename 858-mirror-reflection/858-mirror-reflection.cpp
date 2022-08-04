@@ -5,6 +5,7 @@ public:
             p/=2;
             q/=2;
         }
+        
         return 1 - p % 2 + q % 2;
     }
 };
