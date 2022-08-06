@@ -1,14 +1,21 @@
 class Solution {
 public:
-    int solveHere(int n,vector<int> num,vector<int> &dp){
-        if(n == 0) return num[n];
-        if(n < 0) return 0;
-        if(dp[n] != -1) return dp[n];
-        
-        int pick = num[n] + solveHere(n-2,num,dp);
-        int notpick = 0 + solveHere(n-1,num,dp);
-        
-        return dp[n] = max(pick,notpick);
+    int solveHere(vector<int> arr){
+        int n = arr.size();
+        int prev2 = -1;
+        int prev1 = arr[0];
+	    
+	   for(int i=1;i<n;i++){
+	       int pick = arr[i]; if(i>1) pick += prev2;
+	       int notpick = 0 + prev1;
+	       
+	       int curr = max(pick,notpick);
+	       
+	       prev2 = prev1;
+	       prev1 = curr;
+	   } 
+	  
+	  return prev1;
     }
     
     int rob(vector<int>& nums) {
@@ -23,12 +30,8 @@ public:
             if(i!=n-1) nums2.push_back(nums[i]);
         }
         
-        
-        vector<int> dp(n+1,-1);
-        int ans1 = solveHere(n-2,nums1,dp); //leaving first
-        
-        vector<int> dpp(n+1,-1);
-        int ans2 = solveHere(n-2,nums2,dpp); //leaving last
+        int ans1 = solveHere(nums1); //leaving first
+        int ans2 = solveHere(nums2); //leaving last
         
         return max(ans1,ans2);
     }
