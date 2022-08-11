@@ -9,11 +9,9 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
-
 class Solution {
 public:
-    bool validate(TreeNode* root,TreeNode* minNode,TreeNode* maxNode){
+   bool validate(TreeNode* root,TreeNode* minNode,TreeNode* maxNode){
         if(root == NULL) return true;
         
         if(minNode && root->val <= minNode->val || maxNode && root->val >= maxNode->val) return false;
