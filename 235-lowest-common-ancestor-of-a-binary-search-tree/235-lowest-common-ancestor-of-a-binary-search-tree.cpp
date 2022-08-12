@@ -10,20 +10,21 @@
 
 class Solution {
 public:
-    TreeNode* solveHere(TreeNode* root,int q,int p){
+    TreeNode* solveHere(TreeNode* root, TreeNode* p, TreeNode* q){
         if(root == NULL) return NULL;
         
-        if(q>root->val && p>root->val) 
-            return solveHere(root->right,q,p);
-        else if(q<root->val && p<root->val)
-            return solveHere(root->left,q,p);
-        else return root;
+        if(root == p || root == q) return root;
+        
+        TreeNode* l = solveHere(root->left,p,q);
+        TreeNode* r = solveHere(root->right,p,q);
+        
+        if(l == NULL) return r;
+        else if(r == NULL) return l;
+        
+        return root;
     }
     
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        
-        TreeNode* lca = solveHere(root,q->val,p->val);
-        return lca;
-        
+        return solveHere(root,p,q);
     }
 };
