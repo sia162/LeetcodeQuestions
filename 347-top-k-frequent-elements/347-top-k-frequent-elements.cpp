@@ -6,15 +6,21 @@ public:
         unordered_map<int,int> m;
         for(auto val: nums) m[val]++;
         
-        priority_queue<pair<int,int>> pq;
+        vector<vector<int>> buck(nums.size()+1);
         
-        for(auto [v,f]: m) pq.push({f,v});
-        
-        while(k--){
-            ans.push_back(pq.top().second);
-            pq.pop();
+        for(auto [val,freq]: m){
+            buck[freq].push_back(val);
         }
         
+        reverse(buck.begin(),buck.end());
+        
+        for(auto buc: buck){
+            for(auto i: buc){
+                ans.push_back(i);
+                
+                if(k == ans.size()) return ans;
+            }
+        }
         
         return ans;
     }
