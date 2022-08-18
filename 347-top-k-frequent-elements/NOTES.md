@@ -1,22 +1,25 @@
-return nums;
-}
-unordered_map<int,int> mp;
-for(int i=0;i<nums.size();i++) mp[nums[i]]++;
-vector<vector<int>> v(nums.size()+1);
-for(auto it: mp){
-// cout<<it.second<<it.first<<endl;
-v[it.second].push_back(it.first);
-}
+**APPROCH 2**
+```
+vector<int> topKFrequent(vector<int>& nums, int k) {
 vector<int> ans;
-for(int i=v.size()-1;i>=1;i--){
-// cout<<v[i].size();
-for(int j=0;j<v[i].size();j++){
-ans.push_back(v[i][j]);
-if (ans.size() == k) return ans;
-}
+unordered_map<int,int> m;
+for(auto val: nums) m[val]++;
+priority_queue<pair<int,int>> pq;
+for(auto [v,f]: m) pq.push({f,v});
+while(k--){
+ans.push_back(pq.top().second);
+pq.pop();
 }
 return ans;
 }
-};
 ```
+​
+​
+​
+​
+​
+​
+​
+​
+​
 ​
