@@ -1,42 +1,28 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        vector<int> ans(nums.size(),1);
-        int left = 1;
-        int right = 1;
-        int n=nums.size();
+        int n = nums.size();
         
-        for(int i=0;i<nums.size();i++){
-            ans[i] = ans[i]*left;
-            left = left*nums[i];
-            
-            ans[n-i-1] *=right;
-            right = right*nums[n-i-1];
+        vector<int> pre(n,1),suf(n,1);
+        pre[0] = nums[0];
+        suf[n-1] = nums[n-1];
+        
+        
+        for(int i=1;i<n;i++){
+            pre[i] = nums[i]*pre[i-1]; 
+            suf[n-i-1] = nums[n-i-1]*suf[n-i];
+        } 
+        
+       
+        vector<int> ans(n,1);
+        ans[n-1] = pre[n-2];
+        ans[0] = suf[1];
+        
+        for(int i=1;i<n-1;i++){
+            ans[i] = pre[i-1]*suf[i+1];
         }
         
-//         vector <int> p;
-//         vector<int> s(nums.size());
-        
-//         int pro=1;
-//         for(int i=0;i<nums.size();i++){
-//             pro = pro*nums[i];
-//             p.push_back(pro);
-//         }
-//         pro=1;
-//         for(int i=nums.size()-1;i>=0;i--){
-//             pro = pro*nums[i];
-//             s[i]=pro;
-//         }
-        
-//         for(int k=0;k<nums.size();k++){
-//             if(k == 0) ans.push_back(s[k+1]);
-//             else if(k == nums.size()-1) ans.push_back(p[k-1]);
-//             else{
-//                 int i=k-1;
-//                 int j=k+1;
-//                 ans.push_back(p[i]*s[j]);
-//             }
-//         }
         return ans;
-    }
+        
+    } 
 };
