@@ -1,8 +1,3 @@
-check[index] = 1;
-}
-}
-}
-for(int j=0;j<9;j++){
 vector<int> check(n+1,0);
 for(int i=0;i<9;i++){
 if(board[i][j] == '.')
@@ -27,3 +22,21 @@ continue;
 int index = board[i][j] - '0';
 if(check[index] == 1){
 return false;
+break;
+}
+check[index] = 1;
+}
+}
+}
+}
+}
+return true;
+}
+```
+​
+​
+​
+***approach 2***
+```
+class Solution {
+public:
