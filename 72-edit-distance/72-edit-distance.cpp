@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //solved properly on coding ninjas
     int minDistance(string str1, string str2) {
         int n = str1.length();
         int m = str2.length();
