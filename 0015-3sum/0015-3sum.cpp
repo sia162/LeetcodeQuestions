@@ -15,11 +15,7 @@ public:
                 
                 while(low<high){
                     if(nums[low] + nums[high] == tofind){
-                        vector<int> v;
-                        v.push_back(nums[i]);
-                        v.push_back(nums[low]);
-                        v.push_back(nums[high]);
-                        ans.push_back(v);
+                        ans.push_back({nums[low],nums[high],nums[i]});
                         
                         while(low<high && nums[low]==nums[low+1]) low++;
                         while(low<high && nums[high]==nums[high-1]) high--;
