@@ -37,32 +37,24 @@ struct Node
 class Solution
 {
     public:
-    bool roottonodepath(Node* root,int key,vector<Node*>& ans){
-        if(root == NULL) return false;
-        ans.push_back(root);
+    Node* roottonodepath(Node* root,int key1,int key2){
+        if(root == NULL) return NULL;
         
-        if(root->data == key) return true;
+        if(root->data == key1 || root->data == key2) return root;
         
-        if(roottonodepath(root->left,key,ans) || roottonodepath(root->right,key,ans)) return true;
+        auto val1 = roottonodepath(root->left,key1,key2);
+        auto val2 = roottonodepath(root->right,key1,key2);
+        if(val1 && val2) return root;
+        if(val1) return val1;
+        if(val2) return val2;
         
-        ans.pop_back();
-        return false;
+        return NULL;
     }
     //Function to return the lowest common ancestor in a Binary Tree.
     Node* lca(Node* root ,int n1 ,int n2 )
     {
        //Your code here 
-       vector<Node*> ans1;
-       vector<Node*> ans2;
-       roottonodepath(root,n1,ans1);
-       roottonodepath(root,n2,ans2);
-       
-       Node* ans;
-       for(int i=0;i<min(ans1.size(),ans2.size());i++){
-           if(ans1[i]->data == ans2[i]->data) ans = ans1[i];
-       }
-       
-       return ans;
+       return roottonodepath(root,n1,n2);
     }
 };
 
