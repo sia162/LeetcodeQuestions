@@ -34,6 +34,6 @@ You don't need to read input or print anything. Your task is to complete the fun
 <p>&nbsp;</p>
 
 <p><span style="font-size:18px"><strong>Constraints:</strong><br>
-1 &lt;= N &lt;= 10<sup style="">5</sup><br>
--10<sup style="">9</sup> &lt;= A<sub>i</sub> &lt;= 10<sup style="">9</sup></span></p>
+1 &lt;= N &lt;= 10<sup>5</sup><br>
+-10<sup>9</sup> &lt;= A<sub>i</sub> &lt;= 10<sup>9</sup></span></p>
 </div>
