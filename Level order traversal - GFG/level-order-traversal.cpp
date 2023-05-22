@@ -49,19 +49,14 @@ class Solution
       queue<Node*> q;
       q.push(node);
       
-      
       while(!q.empty()){
-          int s = q.size();
+          Node* n = q.front();
+          trv.push_back(n->data);
           
-          for(int i=0;i<s;i++){
-              Node* n = q.front();
-              trv.push_back(n->data);
-              
-              if(n->left) q.push(n->left);
-              if(n->right) q.push(n->right);
-              
-              q.pop();
-          }
+          if(n->left) q.push(n->left);
+          if(n->right) q.push(n->right);
+          
+          q.pop();
       }
       
       return trv;
