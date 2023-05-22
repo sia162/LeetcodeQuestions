@@ -121,17 +121,16 @@ vector<int> reverseLevelOrder(Node *root)
     q.push(root);
     
     while(!q.empty()){
-        int s = q.size();
+        vector<int> temp;
         
-        for(int i=0;i<s;i++){
-            Node* node = q.front();
-            trv.push_back(node->data);
-            
-            if(node->right) q.push(node->right);
-            if(node->left) q.push(node->left);
+        Node* node = q.front();
+        trv.push_back(node->data);
         
-            q.pop();
-        }
+        if(node->right) q.push(node->right);
+        if(node->left) q.push(node->left);
+    
+        q.pop();
+        
     }
     
     
