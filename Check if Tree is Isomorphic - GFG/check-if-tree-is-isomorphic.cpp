@@ -97,12 +97,13 @@ class Solution{
         if(r1 == NULL && r2 == NULL) return true;
         if(r1 == NULL || r2 == NULL) return false;
         
-        if(r1->data == r2->data)
-        {   return (solve(r1->left,r2->right) &&
+        
+        return r1->data == r2->data &&
+            (solve(r1->left,r2->right) &&
             solve(r1->right,r2->left) || 
             solve(r1->left,r2->left) &&
             solve(r1->right,r2->right)
-        );}
+        );
             
         return false;
     }
