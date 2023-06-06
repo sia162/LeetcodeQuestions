@@ -102,15 +102,8 @@ int main()
 Node* normalLCA(Node* root,int n1,int n2){
     if(root == NULL) return NULL;
     
-    if(root->data == n1 || root->data == n2) return root;
-    
-    Node* l=normalLCA(root->left,n1,n2);
-    Node* r=normalLCA(root->right,n1,n2);
-    
-    if(l && r) return root;
-    else if(!l) return r;
-    else if(!r) return l;
-    
+    if(n1>root->data && n2>root->data) return normalLCA(root->right,n1,n2);
+    else if(n1<root->data && n2<root->data) return normalLCA(root->left,n1,n2);
     return root;
 }
 
