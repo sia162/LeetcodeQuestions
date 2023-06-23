@@ -24,16 +24,17 @@ class Solution {
         int dj = destination.second;
         dist[si][sj] = 0;
         
-        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> pq;
+        // priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>> pq;
+        queue<pair<int,pair<int,int>>> pq;
         pq.push({0,{si,sj}});
         
         vector<int> dr = {0,0,1,-1};
         vector<int> dc = {1,-1,0,0};
    
         while(!pq.empty()){
-            int disTillNow = pq.top().first;
-            int i = pq.top().second.first;
-            int j = pq.top().second.second;
+            int disTillNow = pq.front().first;
+            int i = pq.front().second.first;
+            int j = pq.front().second.second;
             pq.pop();
             
             if(i == di && j == dj) return disTillNow;
