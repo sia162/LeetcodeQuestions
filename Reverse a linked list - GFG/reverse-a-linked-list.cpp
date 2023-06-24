@@ -36,17 +36,19 @@ class Solution
     struct Node* reverseList(struct Node *head)
     {
         // code
-        Node* current = head;
-        Node *prev = NULL, *next = NULL;
+        if (head == NULL || head->next == NULL)
+            return head;
  
-        while (current != NULL) {
-            next = current->next;
-            current->next = prev;
-            prev = current;
-            current = next;
-        }
-        
-        head = prev;
+        /* reverse the rest list and put
+          the first element at the end */
+        Node* rest = reverseList(head->next);
+        head->next->next = head;
+ 
+        /* tricky step -- see the diagram */
+        head->next = NULL;
+ 
+        /* fix the head pointer */
+        return rest;
     }
     
 };
