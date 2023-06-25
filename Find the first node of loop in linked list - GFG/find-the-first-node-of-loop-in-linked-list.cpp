@@ -47,27 +47,32 @@ class Solution
     int findFirstNode(Node* head)
     {
         // your code here
-        Node* slow = head;
-        Node* fast = head;
-        
-        while(fast && fast->next){
+        if (head == NULL || head->next == NULL)
+        return NULL;
+ 
+        Node *slow = head, *fast = head;
+  
+        slow = slow->next;
+        fast = fast->next->next;
+    
+        while (fast && fast->next) {
+            if (slow == fast)
+                break;
             slow = slow->next;
             fast = fast->next->next;
-            
-            if(slow == fast){
-                
-                //findin the node to which the last node is connected
-                slow = head;
-                while(slow!=fast){
-                    slow = slow->next;
-                    fast = fast->next;
-                }
-                
-                return slow->data;
-            }
         }
         
-        return -1;
+        if (slow != fast)
+            return -1;
+        // If loop exists. Start slow from
+        // head and fast from meeting point.
+        slow = head;
+        while (slow != fast) {
+            slow = slow->next;
+            fast = fast->next;
+        }
+        
+        return slow->data;
     }
 };
 
