@@ -33,7 +33,7 @@ class Solution
                     int adjNode = it[0];
                     int edgewt = it[1];
                     
-                    pq.push({edgewt,{adjNode,node}});
+                    if(!vis[adjNode]) pq.push({edgewt,{adjNode,node}});
                 }
             }
         }
