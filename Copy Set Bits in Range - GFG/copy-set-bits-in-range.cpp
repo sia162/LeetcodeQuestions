@@ -8,11 +8,27 @@ using namespace std;
 class Solution{
     public:
     int setSetBit(int x, int y, int l, int r){
-        // code 
-        for(int i = l-1 ; i < r ;i++) {
-            int chkbit = y & (1<<i) ; // Checks if ith bit is set
-            x = chkbit | x ;  // ORing the ith bit
-        }
+//            A    = 10101010101
+//      m1         = 00000000001
+//  m1<<5          =  00000100000
+// (m1<<5)-1       =  00000011111
+// ((m1<<5)-1)<<2  =  00001111100 ===> m2
+    
+    
+//         m2&A    =  00001010100
+//            B    =  10010011001
+//         ORing these two;
+        
+        
+        int mask = 1 << (r-l+1);
+        mask--;
+        
+        mask = (mask << (l-1));
+        
+        mask = (mask&y);
+        
+        x = x | mask;
+        
         return x;
     }
 };
