@@ -12,26 +12,28 @@ class Solution
     {
         // Your code here
         
-        vector<pair<int,int>> t;
-        for(int i=0;i<n;i++) {
-            t.push_back({start[i],end[i]});
+        vector<pair<int,int>> v;
+        
+        for(int i=0;i<n;i++){
+            v.push_back({end[i],start[i]});
         }
         
-        sort(t.begin(),t.end(),[](pair<int,int> a,pair<int,int> b){
-           return a.second<b.second; 
-        });
+        sort(v.begin(),v.end());
+        //sorting according to the ending time of the task;
         
+        int cnt = 1;
+        int endi = v[0].first;
         
-        int endtime = 0;
-        int ans = 0;
-        for(auto p:t){
-            if(p.first>endtime){
-                endtime = p.second;
-                ans++;
+        for(int i=1;i<n;){
+            if(v[i].second <= endi) i++;
+            else{
+                cnt++;
+                endi = v[i].first;
+                i++;
             }
         }
         
-        return ans;
+        return cnt;
     }
 };
 
