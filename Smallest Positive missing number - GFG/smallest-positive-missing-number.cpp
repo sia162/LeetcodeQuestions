@@ -12,17 +12,15 @@ class Solution
     int missingNumber(int arr[], int n) 
     { 
         // Your code here
-        vector<int> v(n+1,-1);
-        
-        for(int i=0;i<n;i++){
-            int num = arr[i];
-            if(num>0 && num<=n){
-                v[num] = 1;
+         for(int i=0;i<n;i++){
+            while(arr[i]>=1 && arr[i]<=n && arr[i]!=arr[arr[i]-1] ){
+                swap(arr[i],arr[arr[i]-1]);
             }
         }
         
-        for(int i=01;i<=n;i++){
-            if(v[i] == -1) return i;
+        for(int i=0;i<n;i++){
+            if(arr[i]!=i+1)
+            return i+1;
         }
         
         return n+1;
