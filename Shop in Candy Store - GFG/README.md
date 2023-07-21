@@ -2,7 +2,7 @@
 ## Easy
 <div class="problems_problem_content__Xm_eO"><p><span style="font-size:18px">In a candy store, there are <strong>N</strong> different types of candies available and the prices of all the N different types of candies are provided to you.<br>
 You are now provided with an attractive offer.<br>
-You can buy a single candy from the store and get at most <strong>K</strong> other candies ( all are different types ) for free.<br>
+For every candy you buy from the store and get at most <strong>K</strong> other candies ( all are different types ) for free.<br>
 Now you have to answer two questions. Firstly, you have to find what is the <strong>minimum amount of money</strong> you have to spend to buy all the<strong> N </strong>different candies. Secondly, you have to find what is the <strong>maximum amount of money</strong> you have to spend to buy all the N different candies.<br>
 In both the cases you must utilize the offer i.e. you buy one candy and get <strong>K </strong>other candies for free.</span></p>
 
