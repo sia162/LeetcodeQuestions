@@ -6,24 +6,25 @@ using namespace std;
 class Solution
 {
 public:
-    vector<int> candyStore(int candies[], int N, int k)
+    vector<int> candyStore(int candies[], int N, int K)
     {
         // Write Your Code here
-       sort(candies, candies + N);
+        sort(candies,candies+N);
         
-        int costmin = 0;
-        int costmax = 0;
-        for(int i=0,j=N-1;i<=j;i++){
-            costmin = costmin + candies[i];
-            j = j-k;
+        int minp = 0;
+        for(int i=0,j=N-1;i<N && i<=j;i++){
+            minp += candies[i];
+            j = j - K;   
         }
         
-        for(int i=N-1,j=0;j<=i;i--){
-            costmax = costmax + candies[i];
-            j = j+k;
+        int maxp = 0;
+        for(int i=N-1,j=0;i>=0 && j<=i;i--){
+            maxp += candies[i];
+            j = j + K;
         }
         
-        return {costmin,costmax};
+        return {minp,maxp};
+        
     }
 };
 
