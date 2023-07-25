@@ -132,40 +132,46 @@ vector<int> findSpiral(Node *root)
     //Your code here
     if (root == NULL) return {};
     
-    stack<Node*> s1; 
-    stack<Node*> s2; 
-    s1.push(root);
- 
-
-    vector<int> ans;
+    deque<Node*> dq;
+    dq.push_back(root);
     
-    while (!s1.empty() || !s2.empty()) {
-  
-        while (!s1.empty()) {
-            Node* temp = s1.top();
-            s1.pop();
+    vector<int> ans;
+    int ltor = 1;
+    
+    while(!dq.empty()){
+        int size = dq.size();
+        
+        if(!ltor){
+            while(size--){
+                // left the right isert a the bacl
+                Node* node = dq.back();
+                dq.pop_back();
+                
+                ans.push_back(node->data);
+                
+                if(node->left) dq.push_front(node->left);
+                if(node->right) dq.push_front(node->right);
+            }
             
-            ans.push_back(temp->data);
- 
-            if (temp->right)
-                s2.push(temp->right);
-            if (temp->left)
-                s2.push(temp->left);
-        }
- 
-
-        while (!s2.empty()) {
-            Node* temp = s2.top();
-            s2.pop();
+            ltor = !ltor;
+        }else{
+            while(size--){
+                //right to left insert at the front
+                Node* node = dq.front();
+                 dq.pop_front();
+                 
+                 ans.push_back(node->data);
+                 
+                 if(node->right) dq.push_back(node->right);
+                 if(node->left) dq.push_back(node->left);
+            }
             
-            ans.push_back(temp->data);
-            
-            if (temp->left)
-                s1.push(temp->left);
-            if (temp->right)
-                s1.push(temp->right);
+            ltor = !ltor;
         }
     }
+    
+    
+    
     
     return ans;
 }
