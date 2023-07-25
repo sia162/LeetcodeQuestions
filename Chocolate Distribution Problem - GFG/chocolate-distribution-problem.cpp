@@ -7,15 +7,15 @@ class Solution{
     public:
     long long findMinDiff(vector<long long> a, long long n, long long m){
     //code
-    sort(a.begin(),a.end());
-    int ans = INT_MAX;
-    
-    for(int i=0;i<=n-m;i++){
-        int val = a[i+m-1]-a[i];
-        ans = min(ans,val);
-    }
-    
-    return ans;
+        // 1 3 4 7 9 9 12 56
+        
+        sort(a.begin(),a.end());
+        long long ans = INT_MAX;
+        for(int i=0,j=m-1;j<n;i++,j++){
+            ans = min(ans,a[j]-a[i]);
+        }
+        
+        return ans;
     
     }   
 };
