@@ -10,36 +10,24 @@ using namespace std;
 
 class Solution{
 public:
-
-    void insert_at_bottom(stack<int>& s,int x){
-        if(s.empty()){
-            s.push(x);
-            return;
-        }
+    void solve(stack<int> &st,queue<int> &q){
+        if(st.empty()) return;
         
-        int emp = s.top();
-        s.pop();
-        insert_at_bottom(s,x);
-        s.push(emp);
-        return;
+        int temp = st.top();
+        st.pop();
         
+        q.push(temp);
+        solve(st,q);
     }
 
-    void reverse(stack<int>& st)
-    {
-        if (st.size() > 0) {
-            int x = st.top();
-            st.pop();
-            
-            reverse(st);
-            insert_at_bottom(st, x);
-        }
-        return;
-    }
+    void Reverse(stack<int> &st){
+        queue<int> q;
+        solve(st,q);
         
-    void Reverse(stack<int> &St){
-        reverse(St);
-        return;
+        while(!q.empty()){
+            st.push(q.front());
+            q.pop();
+        }
     }
 };
 
