@@ -8,17 +8,17 @@ class Solution
 public:
     vector<int> singleNumber(vector<int> nums) 
     {
-        // Code here.
-        unordered_map<int,int> m;
-        
-        for(int i=0;i<nums.size();i++) m[nums[i]]++;
+        sort(nums.begin(),nums.end());
         
         vector<int> ans;
-        for(int i=0;i<nums.size();i++){
-            if(m[nums[i]] == 1) ans.push_back(nums[i]);
+        for(int i=0;i<nums.size();){
+            if(i == nums.size()-1) {ans.push_back(nums[i]); break;}
+            if(nums[i] == nums[i+1]){i+=2; continue;}
+            
+            ans.push_back(nums[i]);
+            i++;
         }
         
-        sort(ans.begin(),ans.end());
         return ans;
     }
 };
