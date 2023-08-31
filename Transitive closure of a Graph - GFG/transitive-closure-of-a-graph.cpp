@@ -9,12 +9,12 @@ using namespace std;
 
 class Solution{
 public:
-    void dfs(int i,vector<int> adj[],vector<int>& vis,vector<int> &temp,int N){
+    void dfs(int i,vector<vector<int>> graph,vector<int>& vis,vector<int> &temp,int N){
         vis[i] = 1;
         temp[i] = 1;
         
-        for(auto j:adj[i]){
-            if(!vis[j]) dfs(j,adj,vis,temp,N);
+        for(int j=0;j<N;j++){
+            if(graph[i][j] == 1 && !vis[j]) dfs(j,graph,vis,temp,N);
         }
     }
 
@@ -24,18 +24,18 @@ public:
         // code here
         vector<vector<int>> ans;
         
-        vector<int> adj[N];
-        for(int i=0;i<N;i++){
-            for(int j=0;j<N;j++){
-                if(graph[i][j] == 1) adj[i].push_back(j);
-            }
-        }
+        // vector<int> adj[N];
+        // for(int i=0;i<N;i++){
+        //     for(int j=0;j<N;j++){
+        //         if(graph[i][j] == 1) adj[i].push_back(j);
+        //     }
+        // }
          
         for(int i=0;i<N;i++){
             vector<int> temp(N,0);
             vector<int> vis(N,0);
             
-            dfs(i,adj,vis,temp,N);
+            dfs(i,graph,vis,temp,N);
             ans.push_back(temp);
         }
         
