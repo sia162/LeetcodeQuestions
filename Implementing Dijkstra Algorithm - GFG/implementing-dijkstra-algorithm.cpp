@@ -13,13 +13,13 @@ class Solution
         // Code here
         vector<int> d(V,INT_MAX);
         d[S] = 0;
-        queue<pair<int,int>> q;
-        q.push({S,0});
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> q;
+        q.push({0,S});
          
          
         while(!q.empty()){
-            int node = q.front().first;
-            int dist = q.front().second;
+            int node = q.top().second;
+            int dist = q.top().first;
             
             q.pop();
             
@@ -30,7 +30,7 @@ class Solution
                 if(dist + cdist < d[cnode]){
                     d[cnode] = dist + cdist;
                     
-                    q.push({cnode,dist+cdist});
+                    q.push({dist+cdist,cnode});
                 }
             }
         }
