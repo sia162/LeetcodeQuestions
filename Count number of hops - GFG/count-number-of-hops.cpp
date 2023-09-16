@@ -24,10 +24,23 @@ class Solution
     
     long long countWays(int n)
     {
-        
         // your code here
-        vector<long long> dp(n+1,-1);
-        return solve(n,dp);
+        vector<long long> dp(n+1,0);
+        
+        dp[0] = 1;
+        
+        for(int i=1;i<=n;i++){
+            long long one = 0,two = 0,three = 0;
+            if(i-1>=0) one = dp[i-1];
+            if(i-2>=0) two = dp[i-2];
+            if(i-3>=0) three = dp[i-3];
+            
+            dp[i] = (one%mod + two%mod + three%mod)%mod;
+        }
+        
+        
+        return dp[n];
+        // return solve(n,dp);
     }
 };
 
